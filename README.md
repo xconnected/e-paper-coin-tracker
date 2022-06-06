@@ -4,8 +4,7 @@
 My attempt to build a coin tracker 
 
 
-![Uploading IMG_20220606_113525_007__01.jpg…]()
-
+![cointracker.jpg]()
 
 
 ## System Prerequisites
