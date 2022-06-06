@@ -10,7 +10,7 @@ My attempt to build a coin tracker
 ## System Prerequisites
 Open raspi-config and enable SPI
 ```shell
-raspi-config
+sudo raspi-config
 ```
 
 ### Required Libraries
