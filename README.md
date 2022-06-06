@@ -1,4 +1,3 @@
-# epapercointracker
 # cointracker on epaper
 
 My attempt to build a coin tracker 
