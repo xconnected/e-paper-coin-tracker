@@ -13,6 +13,8 @@ The code is not commented but kept simple so it can be easily understood anyway
 
 ![cointracker](https://github.com/xconnected/epapercointracker/blob/main/cointracker.jpg?raw=true "Coin Tracker")
 
+If there are any special whishes or ideas to improve the display let me know, or fork the repo into your enhanced version.
+
 
 ## Installation
 
