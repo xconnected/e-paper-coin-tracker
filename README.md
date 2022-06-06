@@ -1,5 +1,6 @@
 # cointracker on epaper
 
+## Introduction
 My attempt to build a coin tracker with an waveshare e-paper display (https://www.waveshare.com/product/displays/e-paper/7.5inch-e-paper-g.htm) and an Raspberry Pi Zero W. Display and raspi are hold together with some aluminium profile - Thats it.
 
 The underlying code is also quite simple and runs along the following steps:
