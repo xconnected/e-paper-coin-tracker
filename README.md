@@ -2,6 +2,13 @@
 
 My attempt to build a coin tracker with an waveshare e-paper display (https://www.waveshare.com/product/displays/e-paper/7.5inch-e-paper-g.htm) and an Raspberry Pi Zero W. Display and raspi are hold together with some aluminium profile - Thats it.
 
+The underlying code is also quite simple and runs along the following steps:
+
+1. Collect coin data from the yahoo finance >> coin-info.py
+2. Render a picture out of it, complement it with some additional information and save it as a file called display.png >> coin-info.py
+3. display the picture >> display.py
+
+The code is not commented but kept simple so it can be easily understood anyway
 
 ![cointracker](https://github.com/xconnected/epapercointracker/blob/main/cointracker.jpg?raw=true "Coin Tracker")
 
