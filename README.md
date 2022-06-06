@@ -7,18 +7,23 @@ My attempt to build a coin tracker
 
 
 ## System Prerequisites
+
+### Hardware configuration 
 Open raspi-config and enable SPI
 ```shell
 sudo raspi-config
 ```
 
-### Required Libraries
+### Required Python Libraries
 ```shell
 pip install pytz
 pip install mplfinance
 pip install yfinance
 pip install pillow
 ```
+
+### Display Libraries (Python)
+Create a folder where you want to place the code and name it ``waveshare_epd`` and then place the content of ``lib\waveshare_epd`` found here ``https://github.com/waveshare/e-Paper/tree/master/RaspberryPi_JetsonNano/python`` into this folder
 
 ### Required System Updates 
 Add the following statements to ``.bashrc`` also make sure is adding this to the path (normally done by default)  ``.profile``
