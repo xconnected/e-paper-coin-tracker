@@ -50,6 +50,7 @@ e.g. Bitcoin BTC.png
 #### font.ttf
 Font to be used for dashboard text
 e.g. I used DS-DIGI.TTF and renamed to font.ttf
+Fonts can be collected from various sites e.g. https://www.wfonts.com/font/ds-digital
 
 ## Python Scripts
 ### clear.py
