@@ -4,8 +4,7 @@
 My attempt to build a coin tracker 
 
 
-![cointracker.jpg]()
-![Employee data](/xconnected/epapercointracker/cointracker.jpg?raw=true "Coin Tracker")
+![cointracker](https://github.com/xconnected/epapercointracker/blob/main/cointracker.jpg?raw=true "Coin Tracker")
 
 
 ## System Prerequisites
