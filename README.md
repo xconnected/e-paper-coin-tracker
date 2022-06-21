@@ -88,11 +88,41 @@ and add the following line for 30min update intervall
 Hint: the part ``2>&1``redirects any stderr (error messages) to the standard output
 
 ## Known Issues
-If there is an issue with version mismatches on numpy the following needs to be done
+**Error Message:**
+```shell
+...
+We have compiled some common reasons and troubleshooting tips at:
+
+    https://numpy.org/devdocs/user/troubleshooting-importerror.html
+
+Please note and check the following:
+
+  * The Python version is: Python3.9 from "/usr/bin/python3"
+  * The NumPy version is: "1.22.4"
+
+and make sure that they are the versions you expect.
+...
+```
+
+**Solution:**
 ```shell
 sudo pip install numpy --upgrade
 sudo apt-get install libatlas-base-dev
 ```
+
+**Error Message:**
+```shell
+from PIL import Image
+../lib/python3.7/site-packages/PIL/Image.py:56: in <module>
+    from . import _imaging as core
+ImportError: libopenjp2.so.7: cannot open shared object file: No such file or directory
+```
+
+**Solution:**
+```shell
+apt-get install libopenjp2-tools
+```
+
 
 ## References
 The information I used to compile this can be found below (thanks to all)
