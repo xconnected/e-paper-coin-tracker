@@ -150,7 +150,7 @@ and add the following line for 30min update intervall
 Hint: the part ``2>&1``redirects any stderr (error messages) to the standard output
 
 ## Known Issues
-Mitigation also suggested in the beginning of the installation
+Mitigation already included the installation instruction above
 
 **Error Message:**
 ```shell
