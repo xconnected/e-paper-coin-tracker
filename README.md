@@ -84,7 +84,6 @@ Get the application code and copy the contant into the application folder create
 
 ```shell
 git clone https://github.com/xconnected/e-paper-coin-tracker.git
-
 cp -R e-paper-coin-tracker/* ./ct
 ```
 
@@ -108,6 +107,7 @@ cp -R e-Paper/tree/master/RaspberryPi_JetsonNano/python/lib/waveshare_epd/* ./ct
 Clears the e-paper display e.g. as preparation for a shutdown or break to protect the display
 Usage:
 ```shell
+cd ~/ct
 python clear.py
 ```
 
@@ -115,6 +115,7 @@ python clear.py
 Compiles the ticker dashboard and render it into a bitmap file ``display.png``
 Usage:
 ```shell
+cd ~/ct
 python coin-info.py
 ```
 
@@ -122,11 +123,16 @@ python coin-info.py
 Clear the epaper display and show the bitmap file named ``display.png``
 Usage:
 ```shell
+cd ~/ct
 python display.py
 ```
 
 ### do.sh 
 Bash script chaining ``coin-info.py`` and ``display.py``.
+```shell
+cd ~/ct
+bash do.sh
+```
 This file can be scheduled with crontab
 
 
