@@ -67,13 +67,15 @@ Add the following statements to ``.bashrc`` also make sure is adding this to the
 export PATH=/home/pi/.local/bin:$PATH
 ```
 
-### Application folder
-Create the folder to hold the code. In the example below I have chosen ``ct`` as the folder name.
+### Application and Display Library folder
+Create the folders to hold the code and the display library. 
+In the example below I have chosen ``ct`` as the folder name.
 This name will be assumed for the remainder of this readme:
 
 ```shell
 cd ~
-mkdir ct
+mkdir ./ct
+mkdir ./ct/waveshare_epd
 ```
 
 ### Install Application Code
@@ -91,12 +93,6 @@ Grab the font you like e.g. https://www.wfonts.com/font/ds-digital
 ```shell
 wget <respective url>
 cp <original font name.ttf> ./ct/font.ttf
-```
-
-If not yet existing make the directory for the display libraries:
-
-```shell
-mkdir ./ct/waveshare_epd
 ```
 
 Get the display libraries and copy the relevant part into the application folder:
