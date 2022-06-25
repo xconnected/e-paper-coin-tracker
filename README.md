@@ -144,7 +144,7 @@ crontab -e
 
 and add the following line for 30min update intervall
 ```
-*/30 * * * * cd /home/pi/App && bash do.sh > run.log 2>&1
+*/30 * * * * cd /home/pi/ct && bash do.sh > run.log 2>&1
 ```
 
 Hint: the part ``2>&1``redirects any stderr (error messages) to the standard output
