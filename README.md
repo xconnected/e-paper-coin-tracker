@@ -20,13 +20,35 @@ If there are any special whishes or ideas to improve the display let me know, or
 
 ### Setup hardware configuration 
 Setup the raspi with a lite image e.g. 32bit without GUI) using the raspi-imager.
-Make sure you enable SSH, credentialsand set the WiFi configuration correctly.
-Once installed open ``raspi-config`` and enable SPI under interfaces.
-As usual update the raspi ``sudo apt update`` and ``sudo apt upgrade``
-When done start installing the libraries as outlined below.
 
+Make sure you enable SSH, credentials and set the WiFi configuration correctly.
+
+Once installed connect to the raspi and perform the usual update
+
+```shell
+sudo apt update
+sudo apt upgrade
+```
+
+To install all the code get ``git``
+
+```shell
+sudo apt install git
+```
+
+Finally open ``raspi-config`` and enable SPI under interfaces.
+
+As outlined below there are some known issues with the libraries to mitigate them perform the following installs
+
+```shell
+sudo pip install numpy --upgrade
+sudo apt-get install libatlas-base-dev
+sudo apt-get install libopenjp2-tools
+```
 
 ### Install required Python Libraries
+After the system is ready let's prepare the python environment
+
 ```shell
 pip install pytz
 pip install mplfinance
@@ -34,45 +56,80 @@ pip install yfinance
 pip install pillow
 ```
 
-### Install Display Libraries (Python)
-Create a folder where you want to place the code and name it ``waveshare_epd`` and then place the content of ``lib\waveshare_epd`` found here ``https://github.com/waveshare/e-Paper/tree/master/RaspberryPi_JetsonNano/python`` into this folder
-
 ### Update Path Environment Variable
 Add the following statements to ``.bashrc`` also make sure is adding this to the path (normally done by default)  ``.profile``
 
-```bash
+```shell
 export PATH=/home/pi/.local/bin:$PATH
 ```
 
-## Application 
-### Required Files 
-The following files are being required:
+### Application folder
+Create the folder to hold the code. In the example below I have chosen ``ct`` as the folder name.
+This name will be assumed for the remainder of this readme:
 
-#### [coin symbol].png
-PNG graphic file with Logo for Crypto Coin named after the coin symbol size 80x80
-e.g. Bitcoin BTC.png
+```shell
+cd ~
+mkdir ct
+```
 
-#### font.ttf
-Font to be used for dashboard text
-e.g. I used DS-DIGI.TTF and renamed to font.ttf
-Fonts can be collected from various sites e.g. https://www.wfonts.com/font/ds-digital
+### Install Application Code
 
-## Python Code
+Get the application code and copy the contant into the application folder created before
+
+```shell
+cd ~
+git clone https://github.com/xconnected/e-paper-coin-tracker.git
+
+cp -R e-paper-coin-tracker/* ./ct
+```
+
+Grab the font you like e.g. https://www.wfonts.com/font/ds-digital 
+
+```shell
+wget <respective url>
+cp <original font name.ttf> ./ct/font.ttf
+```
+
+If not yet existing make the directory for the display libraries:
+
+```shell
+mkdir ./ct/waveshare_epd
+```
+
+Get the display libraries and copy the relevant part into the application folder:
+
+```shell
+git clone https://github.com/waveshare/e-Paper.git
+cp -R e-Paper/tree/master/RaspberryPi_JetsonNano/python/lib/waveshare_epd/* ./ct/waveshare_epd/*
+```
+
+## Use Application Code
+
 ### clear.py
-Clears the e-paper display
-Usage: ``python clear.py``
+Clears the e-paper display e.g. as preparation for a shutdown or break to protect the display
+Usage:
+```shell
+python clear.py
+```
 
 ### coin-info.py
 Compiles the ticker dashboard and render it into a bitmap file ``display.png``
-Usage: ``python coin-info.py``
+Usage:
+```shell
+python coin-info.py
+```
 
 ### display.py 
 Clear the epaper display and show the bitmap file named ``display.png``
-Usage: ``python display.py``
+Usage:
+```shell
+python display.py
+```
 
 ### do.sh 
 Bash script chaining ``coin-info.py`` and ``display.py``.
 This file can be scheduled with crontab
+
 
 ## Scheduling
 Add a schedule into crontab 
@@ -88,6 +145,8 @@ and add the following line for 30min update intervall
 Hint: the part ``2>&1``redirects any stderr (error messages) to the standard output
 
 ## Known Issues
+Mitigation also suggested in the beginning of the installation
+
 **Error Message:**
 ```shell
 ...
