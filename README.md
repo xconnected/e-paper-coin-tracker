@@ -38,6 +38,10 @@ sudo apt install git
 
 Finally open ``raspi-config`` and enable SPI under interfaces.
 
+```shell
+sudo raspi-config
+```
+
 As outlined below there are some known issues with the libraries to mitigate them perform the following installs
 
 ```shell
