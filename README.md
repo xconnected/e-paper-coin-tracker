@@ -81,7 +81,6 @@ mkdir ct
 Get the application code and copy the contant into the application folder created before
 
 ```shell
-cd ~
 git clone https://github.com/xconnected/e-paper-coin-tracker.git
 
 cp -R e-paper-coin-tracker/* ./ct
