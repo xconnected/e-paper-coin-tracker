@@ -14,24 +14,25 @@ font18 = ImageFont.truetype(g_font, 18)
 
 logging.basicConfig(level=logging.INFO)
 
-def substract_pos(pos1, pos2):
+
+def subtract_pos(pos1, pos2):
 
     return tuple(map(lambda i, j: i - j, pos1, pos2))
 
 
-def makeImageTransparent(image):
+def make_image_transparent(image):
 
     image = image.convert("RGBA")
     data = image.getdata()
 
-    newData = []
+    new_data = []
     for item in data:
         if item[0] == 255 and item[1] == 255 and item[2] == 255:
-            newData.append((255, 255, 255, 0))
+            new_data.append((255, 255, 255, 0))
         else:
-            newData.append(item)
+            new_data.append(item)
 
-    image.putdata(newData)
+    image.putdata(new_data)
 
     return image
 
@@ -42,6 +43,7 @@ def get_coin_info(yf_symbol):
     data = yf.Ticker(yf_symbol).history("60d")
     data['Volume'] = data['Volume'] / 1000000
     return coin, data
+
 
 def build_ticker_plot(ticker_data, ticker_plot_size_in, dpi, ticker_plot):
 
@@ -56,9 +58,9 @@ def build_ticker_plot(ticker_data, ticker_plot_size_in, dpi, ticker_plot):
     s = mpf.make_mpf_style(
         base_mpf_style='yahoo',
         rc={'font.size': 10},
-        gridcolor = 'black',
-        gridstyle = '--',
-        gridaxis = 'horizontal',
+        gridcolor='black',
+        gridstyle='--',
+        gridaxis='horizontal',
         marketcolors=mc
     )
 
@@ -83,16 +85,16 @@ def show_param(draw, pos, label, value):
     draw.text(pos, label, font=font20, fill=0)
     draw.text((pos_x, pos_y + 20), value, font=font22, fill=0)
 
-    return(pos_x, pos_y+60)
+    return pos_x, pos_y + 60
 
 
 def compile_visual(coin, display_size_px, visual_input, visual_output):
 
     print(coin.info)
     im1 = Image.open(visual_input)
-    im1 = makeImageTransparent(im1)
-    imageBox = im1.getbbox()
-    im1 = im1.crop(imageBox)
+    im1 = make_image_transparent(im1)
+    image_box = im1.getbbox()
+    im1 = im1.crop(image_box)
     im1 = im1.convert('1', dither=False)
     text = coin.info['fromCurrency']+'.png'
     im2 = Image.open(text.lower())
@@ -101,8 +103,8 @@ def compile_visual(coin, display_size_px, visual_input, visual_output):
     im = Image.new('1', display_size_px, 255)
 
     # Paste ticker plot bottom-right
-    imgsml = substract_pos(im.size, (10,10))
-    offset = substract_pos(imgsml, im1.size)
+    img_small = subtract_pos(im.size, (10, 10))
+    offset = subtract_pos(img_small, im1.size)
     im.paste(im1, offset)
 
     # Paste logo top-left
@@ -120,7 +122,7 @@ def compile_visual(coin, display_size_px, visual_input, visual_output):
     text = datetime.now(tz).strftime("%d-%m-%Y %H:%M:%S")
     draw.text((pos_x, pos_y), text, font=font22, fill=0)
 
-    pos = (10,120)
+    pos = (10, 120)
     value = f"{coin.info['regularMarketPrice']:,.0f}"
     pos = show_param(draw, pos, 'Price', value)
 
@@ -134,13 +136,13 @@ def compile_visual(coin, display_size_px, visual_input, visual_output):
     pos = show_param(draw, pos, 'Last Close', value)
 
     value = f"{coin.info['twoHundredDayAverage']:,.0f}"
-    pos = show_param(draw, pos, 'Average 200', value)
+    show_param(draw, pos, 'Average 200', value)
 
     value = f"{coin.info['volume24Hr']:,.0f}"
-    pos = show_param(draw, (400,10), 'Volume 24h', value)
+    show_param(draw, (400, 10), 'Volume 24h', value)
 
     value = f"{coin.info['marketCap']:,.0f}"
-    pos = show_param(draw, (600,10), 'Marketcap', value)
+    show_param(draw, (600, 10), 'Marketcap', value)
 
     im.save(visual_output)
 
