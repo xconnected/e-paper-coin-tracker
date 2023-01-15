@@ -1,5 +1,4 @@
 # !/usr/bin/python
-
 import logging
 import pytz
 from datetime import datetime
@@ -14,7 +13,6 @@ font20 = ImageFont.truetype(g_font, 20)
 font18 = ImageFont.truetype(g_font, 18)
 
 logging.basicConfig(level=logging.INFO)
-
 
 def substract_pos(pos1, pos2):
 
@@ -39,12 +37,11 @@ def makeImageTransparent(image):
 
 
 def get_coin_info(yf_symbol):
-    
+
     coin = yf.Ticker(yf_symbol)
     data = yf.Ticker(yf_symbol).history("60d")
     data['Volume'] = data['Volume'] / 1000000
     return coin, data
-
 
 def build_ticker_plot(ticker_data, ticker_plot_size_in, dpi, ticker_plot):
 
@@ -91,12 +88,12 @@ def show_param(draw, pos, label, value):
 
 def compile_visual(coin, display_size_px, visual_input, visual_output):
 
+    print(coin.info)
     im1 = Image.open(visual_input)
     im1 = makeImageTransparent(im1)
     imageBox = im1.getbbox()
     im1 = im1.crop(imageBox)
     im1 = im1.convert('1', dither=False)
-
     text = coin.info['fromCurrency']+'.png'
     im2 = Image.open(text.lower())
     im2 = im2.convert('1', dither=False)
@@ -154,13 +151,10 @@ def build_ticker_display(symbol, plot_size_in, plot_dpi, display_size_px):
 
     logging.info("Get coin info...")
     coin, data = get_coin_info(symbol)
-
     logging.info("Build candle chart...")
     build_ticker_plot(data, plot_size_in, plot_dpi, 'ticker.png')
-
     logging.info("Build dashboard...")
     im = compile_visual(coin, display_size_px, 'ticker.png', 'display.png')
-
     logging.info("Done.")
 
     return im
