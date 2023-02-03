@@ -42,7 +42,8 @@ def get_coin_info(yf_symbol):
     coin = yf.Ticker(yf_symbol)
     data = yf.Ticker(yf_symbol).history("60d")
     data['Volume'] = data['Volume'] / 1000000
-    return coin, data
+    fast_info = yf.Ticker(yf_symbol).fast_info
+    return coin, data, fast_info
 
 
 def build_ticker_plot(ticker_data, ticker_plot_size_in, dpi, ticker_plot):
@@ -88,9 +89,8 @@ def show_param(draw, pos, label, value):
     return pos_x, pos_y + 60
 
 
-def compile_visual(coin, display_size_px, visual_input, visual_output):
+def compile_visual(coin, fast_info, display_size_px, visual_input, visual_output):
 
-    print(coin.info)
     im1 = Image.open(visual_input)
     im1 = make_image_transparent(im1)
     image_box = im1.getbbox()
@@ -123,26 +123,26 @@ def compile_visual(coin, display_size_px, visual_input, visual_output):
     draw.text((pos_x, pos_y), text, font=font22, fill=0)
 
     pos = (10, 120)
-    value = f"{coin.info['regularMarketPrice']:,.0f}"
+    value = f"{fast_info['last_price']:,.0f}"
     pos = show_param(draw, pos, 'Price', value)
 
-    value = f"{coin.info['dayHigh']:,.0f}"
+    value = f"{fast_info['day_high']:,.0f}"
     pos = show_param(draw, pos, 'High', value)
 
-    value = f"{coin.info['dayLow']:,.0f}"
+    value = f"{fast_info['day_low']:,.0f}"
     pos = show_param(draw, pos, 'Low', value)
 
-    value = f"{coin.info['previousClose']:,.0f}"
+    value = f"{fast_info['regular_market_previous_close']:,.0f}"
     pos = show_param(draw, pos, 'Last Close', value)
 
-    value = f"{coin.info['twoHundredDayAverage']:,.0f}"
+    value = f"{fast_info['two_hundred_day_average']:,.0f}"
     show_param(draw, pos, 'Average 200', value)
 
-    value = f"{coin.info['volume24Hr']:,.0f}"
+    value = f"{fast_info['last_volume']:,.0f}"
     show_param(draw, (400, 10), 'Volume 24h', value)
 
-    value = f"{coin.info['marketCap']:,.0f}"
-    show_param(draw, (600, 10), 'Marketcap', value)
+    value = f"{fast_info['market_cap']:,.0f}"
+    show_param(draw, (600, 10), 'Market Cap', value)
 
     im.save(visual_output)
 
@@ -152,11 +152,11 @@ def compile_visual(coin, display_size_px, visual_input, visual_output):
 def build_ticker_display(symbol, plot_size_in, plot_dpi, display_size_px):
 
     logging.info("Get coin info...")
-    coin, data = get_coin_info(symbol)
+    coin, data, fast_info = get_coin_info(symbol)
     logging.info("Build candle chart...")
     build_ticker_plot(data, plot_size_in, plot_dpi, 'ticker.png')
     logging.info("Build dashboard...")
-    im = compile_visual(coin, display_size_px, 'ticker.png', 'display.png')
+    im = compile_visual(coin, fast_info, display_size_px, 'ticker.png', 'display.png')
     logging.info("Done.")
 
     return im
